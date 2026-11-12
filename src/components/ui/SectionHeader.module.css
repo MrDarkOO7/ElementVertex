@@ -1,0 +1,47 @@
+.header {
+  max-width: 46rem;
+}
+
+.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.center .eyebrow {
+  justify-content: center;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.dash {
+  width: 2.25rem;
+  height: 3px;
+  margin-right: 0.35rem;
+  border-radius: 3px;
+  background: currentColor;
+}
+
+.title {
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+}
+
+.intro {
+  margin-top: 1.5rem;
+  max-width: 38rem;
+  color: var(--fg-muted);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+}
+
+.center .intro {
+  margin-inline: auto;
+}

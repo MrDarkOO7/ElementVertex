@@ -1,0 +1,187 @@
+.accent {
+  color: var(--mint);
+}
+
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.philosophy {
+  display: grid;
+  align-content: start;
+  gap: 1.25rem;
+  color: var(--fg-muted);
+}
+
+.philosophy strong {
+  color: var(--mint);
+}
+
+.lead {
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.05rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.mission {
+  margin-top: 0.5rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: var(--radius);
+  background: var(--indigo);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---- Values ---- */
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 2rem;
+  align-content: start;
+}
+
+.values li {
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.valueNum {
+  color: var(--mint);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.values h3 {
+  margin-top: 0.4rem;
+  font-size: 1.3rem;
+  letter-spacing: -0.015em;
+}
+
+.values p {
+  margin-top: 0.5rem;
+  color: var(--fg-muted);
+  font-size: 0.98rem;
+}
+
+/* ---- Team ---- */
+
+.team {
+  margin-top: clamp(4rem, 9vw, 7rem);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--line);
+}
+
+.teamTitle {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+}
+
+.founders {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: 2.25rem;
+}
+
+.founder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  text-align: center;
+  transition:
+    border-color 0.3s,
+    transform 0.4s var(--ease);
+}
+
+.founder:hover {
+  border-color: rgb(136 249 192 / 0.5);
+  transform: translateY(-4px);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  background: var(--indigo);
+  box-shadow:
+    0 0 0 5px var(--surface),
+    0 0 0 6.5px var(--mint);
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.role {
+  margin-top: 0.35rem;
+  color: var(--mint);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.teamNote {
+  max-width: 40rem;
+  margin-top: 2.25rem;
+  color: var(--fg-muted);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 62rem) {
+  .story {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 40rem) {
+  .values {
+    grid-template-columns: 1fr;
+  }
+
+  .founders {
+    grid-template-columns: 1fr;
+  }
+
+  .founder {
+    flex-direction: row;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    text-align: left;
+  }
+
+  .avatar {
+    flex-shrink: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 0;
+    font-size: 1.3rem;
+  }
+}

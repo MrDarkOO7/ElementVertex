@@ -1,0 +1,84 @@
+.compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.panel figcaption h3 {
+  font-size: 1.35rem;
+  letter-spacing: -0.015em;
+}
+
+.panel figcaption p {
+  margin-top: 0.4rem;
+  color: var(--fg-muted);
+  font-size: 1rem;
+}
+
+.featured {
+  border-color: rgb(136 249 192 / 0.45);
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgb(99 49 251 / 0.38), transparent 60%),
+    var(--surface);
+}
+
+.featured figcaption h3 {
+  color: var(--mint);
+}
+
+/* ---- Pillars ---- */
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+}
+
+.pillar {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+
+.pillar::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 2.75rem;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--mint);
+}
+
+.pillar h3 {
+  font-size: 1.6rem;
+}
+
+.pillar p {
+  margin-top: 0.75rem;
+  color: var(--fg-muted);
+}
+
+@media (max-width: 62rem) {
+  .compare {
+    grid-template-columns: 1fr;
+  }
+
+  .pillars {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

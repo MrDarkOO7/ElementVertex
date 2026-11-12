@@ -1,0 +1,100 @@
+.svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-body);
+}
+
+.node {
+  fill: var(--onyx-raised);
+  stroke: rgb(255 255 255 / 0.2);
+  stroke-width: 1;
+}
+
+.label {
+  fill: #e6e6f5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.owner {
+  fill: #fff;
+}
+
+.ownerLabel {
+  fill: var(--onyx);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ---- Scattered ---- */
+
+.link {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.38);
+  stroke-width: 1.4;
+}
+
+.cross {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.22);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 5;
+}
+
+.scattered .node {
+  stroke: rgb(255 255 255 / 0.14);
+}
+
+.scattered .label {
+  fill: #b4b4cc;
+}
+
+/* ---- Unified ---- */
+
+.team {
+  fill: rgb(136 249 192 / 0.06);
+  stroke: var(--mint);
+  stroke-opacity: 0.55;
+  stroke-width: 1.2;
+  stroke-dasharray: 2 6;
+  stroke-linecap: round;
+}
+
+.flow {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 5 7;
+  animation: flow 1.6s linear infinite;
+}
+
+.unified .node {
+  stroke: var(--mint);
+  stroke-opacity: 0.5;
+}
+
+.hubGlow {
+  fill: var(--indigo);
+  opacity: 0.35;
+  filter: blur(10px);
+}
+
+.hub {
+  fill: var(--indigo);
+  stroke: rgb(255 255 255 / 0.3);
+  color: #fff;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow {
+    animation: none;
+  }
+}

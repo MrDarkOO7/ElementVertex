@@ -1,0 +1,60 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: var(--section-y);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.flush {
+  padding-block: 0;
+}
+
+/* Colour contexts ------------------------------------------------------ */
+
+.dark {
+  --bg: var(--onyx);
+  --fg: #ffffff;
+  --fg-muted: #b4b4cc;
+  --line: var(--onyx-line);
+  --accent: var(--mint);
+  --on-accent: var(--onyx);
+  --surface: var(--onyx-raised);
+  --focus: var(--mint);
+}
+
+.light {
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --fg-muted: #55556f;
+  --line: var(--paper-line);
+  --accent: var(--indigo);
+  --on-accent: #ffffff;
+  --surface: var(--paper-raised);
+  --focus: var(--indigo);
+}
+
+.indigo {
+  --bg: var(--indigo);
+  --fg: #ffffff;
+  --fg-muted: #eee9ff;
+  --line: rgb(255 255 255 / 0.28);
+  --accent: var(--mint);
+  --on-accent: var(--onyx);
+  --surface: rgb(1 1 13 / 0.22);
+  --focus: #ffffff;
+}
+
+/* Film grain: a quiet texture that stops big flat colour areas looking
+   digital. Purely decorative, sits behind the content. */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}

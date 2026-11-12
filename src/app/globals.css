@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Element Vertex — global styles
+   Design tokens, reset, typography and a few shared utilities.
+   Component styles live next to their components as CSS Modules.
+   ========================================================================== */
+
+:root {
+  /* Brand palette */
+  --onyx: #01010d;
+  --indigo: #6331fb;
+  --mint: #88f9c0;
+
+  /* Supporting neutrals (derived from the brand colours) */
+  --onyx-raised: #0b0b1c;
+  --onyx-line: #1d1d33;
+  --paper: #f6f5fb;
+  --paper-raised: #ffffff;
+  --paper-line: #dedbee;
+  --ink: #14142b;
+  --indigo-soft: #ece7ff;
+  --indigo-deep: #4a1fd6;
+
+  /* Type */
+  --font-display: var(--font-bricolage), "Segoe UI", system-ui, sans-serif;
+  --font-body: var(--font-manrope), "Segoe UI", system-ui, sans-serif;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --section-y: clamp(4.5rem, 10vw, 8rem);
+  --header-h: 4.5rem;
+  --radius: 1.25rem;
+  --radius-lg: 1.75rem;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--onyx);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--mint);
+  color: var(--onyx);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus, var(--mint));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Utilities ---------- */
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--onyx);
+  font-weight: 700;
+  transform: translateY(-200%);
+  transition: transform 0.2s var(--ease);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*
+ * Scroll-reveal, done in pure CSS (scroll-driven animations).
+ * Browsers without support simply show the content immediately.
+ * Stagger siblings by setting --i on the element.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--i, 0) * 6%) entry calc(45% + var(--i, 0) * 6%);
+    }
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

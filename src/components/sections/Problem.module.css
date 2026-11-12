@@ -1,0 +1,82 @@
+.list {
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 1rem 1.5rem;
+  padding: clamp(1.4rem, 3vw, 2.1rem) 0.5rem;
+  border-bottom: 1px solid var(--line);
+  transition:
+    padding 0.45s var(--ease),
+    background-color 0.45s;
+}
+
+/* A full-bleed wash that slides in on hover */
+.row::before {
+  content: "";
+  position: absolute;
+  inset: 0 -100vmax;
+  z-index: -1;
+  background: var(--indigo-soft);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.row:hover {
+  padding-left: 1.25rem;
+}
+
+.row:hover::before {
+  opacity: 1;
+}
+
+.num {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.text {
+  max-width: 44rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.6vw, 2rem);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.tag {
+  padding: 0.3rem 0.85rem;
+  border: 1.5px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.close {
+  max-width: 40rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  color: var(--fg-muted);
+  font-size: 1.15rem;
+}
+
+@media (max-width: 40rem) {
+  .row {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .tag {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
