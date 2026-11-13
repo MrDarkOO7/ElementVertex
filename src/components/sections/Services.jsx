@@ -7,6 +7,7 @@ import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { services } from "@/content/services";
+import { UNSURE } from "@/lib/contact";
 import styles from "./Services.module.css";
 
 export default function Services() {
@@ -67,33 +68,47 @@ export default function Services() {
             })}
           </div>
 
-          <div
-            key={active.id}
-            role="tabpanel"
-            id={`panel-${active.id}`}
-            aria-labelledby={`tab-${active.id}`}
-            tabIndex={0}
-            className={styles.panel}
-          >
-            <span className={styles.ghost} aria-hidden="true">
-              {active.number}
-            </span>
-            <h3 className={styles.panelTitle}>{active.title}</h3>
-            <p className={styles.panelTagline}>{active.tagline}</p>
-            <ul className={styles.items}>
-              {active.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <Button href="/#contact" arrow onClick={() => setInterest(active.id)}>
-              Talk to us about this
-            </Button>
+          {/*
+            Every panel is rendered in the same grid cell and only the active one is
+            visible, so the box is always as tall as the tallest panel and never jumps.
+            Inactive panels use visibility:hidden, which also hides them from screen
+            readers and the tab order.
+          */}
+          <div className={styles.panels}>
+            {services.map((service) => (
+              <div
+                key={service.id}
+                role="tabpanel"
+                id={`panel-${service.id}`}
+                aria-labelledby={`tab-${service.id}`}
+                tabIndex={0}
+                className={`${styles.panel} ${service.id === active.id ? styles.panelActive : ""}`}
+              >
+                <span className={styles.ghost} aria-hidden="true">
+                  {service.number}
+                </span>
+                <h3 className={styles.panelTitle}>{service.title}</h3>
+                <p className={styles.panelTagline}>{service.tagline}</p>
+                <ul className={styles.items}>
+                  {service.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                <Button href="/#contact" arrow onClick={() => setInterest(service.id)}>
+                  Talk to us about this
+                </Button>
+              </div>
+            ))}
           </div>
         </div>
 
         <p className={`${styles.more} reveal`}>
-          <strong>And more.</strong> These are the areas people ask for most, not the limit of what we do. If your
-          business needs it, there is a good chance we can handle it or build the right team around it.
+          <strong>And more.</strong> These are the areas people ask for most, not the limit of what we do. Don’t see
+          yours?{" "}
+          <a href="/#contact" onClick={() => setInterest(UNSURE)}>
+            Tell us what you need
+          </a>
+          .
         </p>
       </Container>
     </Section>

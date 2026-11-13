@@ -68,7 +68,7 @@ export const services = [
     tagline: "The day-to-day work that keeps a business moving.",
     items: [
       "Administrative and back-office support",
-      "Transaction and project coordination",
+      "Project and order coordination",
       "Lead generation and scheduling",
       "Process documentation and workflow support",
     ],

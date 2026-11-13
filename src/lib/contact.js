@@ -1,8 +1,10 @@
 import { services } from "@/content/services";
 
+export const UNSURE = "unsure";
+
 export const SERVICE_OPTIONS = [
   ...services.map((s) => ({ value: s.id, label: s.title })),
-  { value: "unsure", label: "Not sure yet" },
+  { value: UNSURE, label: "Not sure yet" },
 ];
 
 const limits = { name: 100, email: 200, company: 120, message: 4000 };
@@ -19,7 +21,7 @@ export function validateContact(input) {
     name: clean(input?.name, limits.name),
     email: clean(input?.email, limits.email),
     company: clean(input?.company, limits.company),
-    service: clean(input?.service, 40),
+    services: cleanServices(input?.services),
     message: clean(input?.message, limits.message),
   };
 
@@ -27,11 +29,20 @@ export function validateContact(input) {
   if (!value.name) errors.name = "Please tell us your name.";
   if (!EMAIL_PATTERN.test(value.email)) errors.email = "Please enter a valid email address.";
   if (!value.message) errors.message = "Please tell us a little about what you need.";
-  if (value.service && !SERVICE_OPTIONS.some((o) => o.value === value.service)) value.service = "unsure";
 
   return Object.keys(errors).length ? { ok: false, errors } : { ok: true, value };
 }
 
-export function serviceLabel(value) {
-  return SERVICE_OPTIONS.find((o) => o.value === value)?.label ?? "Not specified";
+/** Keeps only known, de-duplicated service ids. "Not sure yet" never sits beside a real choice. */
+function cleanServices(input) {
+  const list = Array.isArray(input) ? input : [];
+  const known = new Set(SERVICE_OPTIONS.map((o) => o.value));
+  const unique = [...new Set(list.filter((v) => typeof v === "string" && known.has(v)))];
+  const specific = unique.filter((v) => v !== UNSURE);
+  return specific.length ? specific : unique;
+}
+
+export function servicesLabel(values) {
+  if (!values?.length) return "Not specified";
+  return values.map((v) => SERVICE_OPTIONS.find((o) => o.value === v)?.label ?? v).join(", ");
 }

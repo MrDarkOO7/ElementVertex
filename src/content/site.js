@@ -6,10 +6,11 @@ export const site = {
   name: "Element Vertex",
   tagline: "Built on Fundamentals. Designed for the Next Level.",
   description:
-    "Element Vertex is one team for the marketing, accounting, CRM, software and virtual assistance small businesses need. One partner, one standard, one point of contact.",
+    "Element Vertex is one team for the marketing, accounting, CRM, software and virtual assistance a business needs. One partner, one standard, one point of contact.",
   url: "https://elementvertex.com",
   email: "hello@elementvertex.com",
-  region: "United States",
+  /** Shown on the contact form. Only promise what you can keep. */
+  replyTime: "one working day",
 
   /**
    * Paste your Calendly / Cal.com link here once the account exists.

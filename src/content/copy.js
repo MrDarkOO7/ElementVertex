@@ -14,7 +14,7 @@ export const problems = [
   },
   {
     tag: "Accounting",
-    text: "The books are a few months behind, and tax season does not care.",
+    text: "The books are a few months behind, and the tax deadline does not care.",
   },
   {
     tag: "Software",
@@ -148,8 +148,8 @@ export const faqs = [
     a: "One point of contact who owns your account from start to finish, backed by the rest of the team. You will not be chasing five different people.",
   },
   {
-    q: "Do you work with businesses in my state?",
-    a: "Yes. We work with small businesses in every US state.",
+    q: "Do you work with businesses in my country or region?",
+    a: "We are not tied to one market. Tell us where you are based and we will confirm how we can help, including any local requirements such as tax rules.",
   },
   {
     q: "What happens after the work is delivered?",

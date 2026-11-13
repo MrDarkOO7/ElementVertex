@@ -19,6 +19,7 @@
 }
 
 .tab {
+  flex: 1; /* tabs share the column's full height, so there is no dead space under the last one */
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -50,6 +51,8 @@
 }
 
 .tabNum {
+  min-width: 1.3rem; /* fixed width so every title starts at the same x position */
+  font-variant-numeric: tabular-nums;
   color: var(--mint);
   font-size: 0.8rem;
   font-weight: 800;
@@ -63,18 +66,37 @@
 
 /* ---- Panel ---- */
 
+/* All panels share one grid cell, so the container takes the tallest one's height. */
+.panels {
+  display: grid;
+  min-width: 0;
+}
+
 .panel {
+  grid-area: 1 / 1;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: clamp(1.75rem, 4vw, 3.5rem);
-  min-height: 26rem;
-  animation: panel-in 0.5s var(--ease) both;
   overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.5s var(--ease),
+    visibility 0s 0.4s;
   --focus: var(--mint);
   --accent: var(--mint);
   --on-accent: var(--onyx);
+}
+
+.panelActive {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
 }
 
 .panel:focus-visible {
@@ -132,17 +154,10 @@
   background: var(--mint);
 }
 
-@keyframes panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-}
-
+/* Full width, so it lines up with the card above it. */
 .more {
-  max-width: 44rem;
-  margin-top: 2rem;
-  padding: 1.25rem 1.5rem;
+  margin-top: 1.25rem;
+  padding: 1.15rem 1.5rem;
   border-radius: var(--radius);
   background: var(--indigo-soft);
   color: var(--ink);
@@ -151,6 +166,18 @@
 
 .more strong {
   color: var(--indigo-deep);
+}
+
+.more a {
+  color: var(--indigo-deep);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.more a:hover {
+  text-decoration-color: var(--indigo);
 }
 
 /* ---- Small screens: tabs become a scrolling strip ---- */
@@ -176,7 +203,7 @@
   }
 
   .tab {
-    flex-shrink: 0;
+    flex: 0 0 auto;
     width: auto;
     padding: 0.7rem 1rem;
     border-radius: 999px;
@@ -184,14 +211,11 @@
     white-space: nowrap;
     scroll-snap-align: start;
   }
-
-  .panel {
-    min-height: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .panel {
-    animation: none;
+    transform: none;
+    transition: none;
   }
 }

@@ -16,7 +16,7 @@ export default function Hero() {
         <div className={styles.copy}>
           <p className={`${styles.kicker} reveal`}>
             <span className={styles.dot} aria-hidden="true" />
-            Built for businesses across the US
+            One team for every business function
           </p>
 
           <h1 id="hero-title" className={styles.title}>

@@ -1,4 +1,4 @@
-import { serviceLabel, validateContact } from "@/lib/contact";
+import { servicesLabel, validateContact } from "@/lib/contact";
 import { site } from "@/content/site";
 
 /**
@@ -31,7 +31,7 @@ export async function POST(request) {
     return json({ ok: false, errors: result.errors }, 422);
   }
 
-  const { name, email, company, service, message } = result.value;
+  const { name, email, company, services, message } = result.value;
   const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey) {
@@ -49,7 +49,7 @@ export async function POST(request) {
     `Name: ${name}`,
     `Email: ${email}`,
     `Company: ${company || "-"}`,
-    `Interested in: ${serviceLabel(service)}`,
+    `Interested in: ${servicesLabel(services)}`,
     "",
     message,
   ].join("\n");

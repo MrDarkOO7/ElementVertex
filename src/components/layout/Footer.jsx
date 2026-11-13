@@ -50,7 +50,7 @@ export default function Footer() {
               <li>
                 <a href={`mailto:${site.email}`}>{site.email}</a>
               </li>
-              <li className={styles.muted}>Serving small businesses across the {site.region}</li>
+              <li className={styles.muted}>Working with businesses wherever they are</li>
             </ul>
           </div>
         </div>

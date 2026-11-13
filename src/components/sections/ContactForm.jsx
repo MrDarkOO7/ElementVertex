@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useInterest } from "@/components/providers/InterestProvider";
 import Button from "@/components/ui/Button";
 import { site } from "@/content/site";
-import { SERVICE_OPTIONS } from "@/lib/contact";
+import { SERVICE_OPTIONS, UNSURE } from "@/lib/contact";
 import styles from "./ContactForm.module.css";
 
 const initialFields = { name: "", email: "", company: "", message: "", website: "" };
@@ -12,15 +12,23 @@ const initialFields = { name: "", email: "", company: "", message: "", website: 
 export default function ContactForm() {
   const { interest } = useInterest();
   const [fields, setFields] = useState(initialFields);
-  const [pick, setPick] = useState({ base: "", value: "" });
+  const [pick, setPick] = useState({ base: "", value: [] });
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [errors, setErrors] = useState({});
 
-  // The select defaults to whatever the quiz / services explorer recorded,
-  // but the visitor's own choice wins until a new suggestion arrives.
-  const service = pick.base === interest ? pick.value : interest;
+  // The choices default to whatever the quiz / services explorer recorded,
+  // but the visitor's own selection wins until a new suggestion arrives.
+  const selected = pick.base === interest ? pick.value : interest ? [interest] : [];
 
   const update = (event) => setFields((f) => ({ ...f, [event.target.name]: event.target.value }));
+
+  const toggle = (value) => {
+    let next;
+    if (selected.includes(value)) next = selected.filter((v) => v !== value);
+    else if (value === UNSURE) next = [UNSURE]; // "Not sure yet" replaces any specific choice
+    else next = [...selected.filter((v) => v !== UNSURE), value];
+    setPick({ base: interest, value: next });
+  };
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -31,7 +39,7 @@ export default function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...fields, service }),
+        body: JSON.stringify({ ...fields, services: selected }),
       });
       const data = await response.json().catch(() => ({}));
 
@@ -56,8 +64,8 @@ export default function ContactForm() {
         </span>
         <h3>Message received.</h3>
         <p>
-          Thank you, {fields.name.split(" ")[0] || "and welcome"}. We will read it carefully and get back to you to
-          arrange your free call.
+          Thank you, {fields.name.split(" ")[0] || "and welcome"}. We will read it carefully and get back to you within{" "}
+          {site.replyTime} to arrange your free call.
         </p>
       </div>
     );
@@ -67,6 +75,14 @@ export default function ContactForm() {
 
   return (
     <form className={styles.form} onSubmit={onSubmit} aria-describedby="form-status">
+      <div className={styles.head}>
+        <h3 className={styles.title}>Tell us what you need</h3>
+        <p className={styles.reply}>
+          <span className={styles.pulse} aria-hidden="true" />
+          We reply within {site.replyTime}
+        </p>
+      </div>
+
       <div className={styles.row}>
         <div className={styles.field}>
           <label htmlFor="cf-name">Your name</label>
@@ -80,29 +96,30 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className={styles.row}>
-        <div className={styles.field}>
-          <label htmlFor="cf-company">
-            Business <span className={styles.optional}>(optional)</span>
-          </label>
-          <input id="cf-company" name="company" maxLength={120} autoComplete="organization" value={fields.company} onChange={update} />
-        </div>
-        <div className={styles.field}>
-          <label htmlFor="cf-service">What do you need help with?</label>
-          <select id="cf-service" value={service} onChange={(e) => setPick({ base: interest, value: e.target.value })}>
-            <option value="">Choose one</option>
-            {SERVICE_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className={styles.field}>
+        <label htmlFor="cf-company">
+          Business <span className={styles.optional}>(optional)</span>
+        </label>
+        <input id="cf-company" name="company" maxLength={120} autoComplete="organization" value={fields.company} onChange={update} />
       </div>
 
+      <fieldset className={styles.choices}>
+        <legend>
+          What do you need help with? <span className={styles.optional}>(choose any that apply)</span>
+        </legend>
+        <div className={styles.chips}>
+          {SERVICE_OPTIONS.map((option) => (
+            <label key={option.value} className={styles.chip}>
+              <input type="checkbox" checked={selected.includes(option.value)} onChange={() => toggle(option.value)} />
+              <span>{option.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
       <div className={styles.field}>
-        <label htmlFor="cf-message">Tell us a little about your business and what you need</label>
-        <textarea id="cf-message" name="message" required rows={5} maxLength={4000} value={fields.message} onChange={update} aria-invalid={Boolean(errors.message)} />
+        <label htmlFor="cf-message">Tell us a little about what you need</label>
+        <textarea id="cf-message" name="message" required rows={3} maxLength={4000} value={fields.message} onChange={update} aria-invalid={Boolean(errors.message)} />
         {errors.message ? <p className={styles.error}>{errors.message}</p> : null}
       </div>
 

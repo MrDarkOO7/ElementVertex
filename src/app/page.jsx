@@ -22,7 +22,6 @@ const structuredData = [
     email: site.email,
     description: site.description,
     slogan: site.tagline,
-    areaServed: { "@type": "Country", name: "United States" },
     knowsAbout: services.map((s) => s.title),
   },
   {
