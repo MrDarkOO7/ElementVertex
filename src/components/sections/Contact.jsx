@@ -14,12 +14,13 @@ const nextSteps = [
 
 export default function Contact() {
   return (
-    <Section id="contact" tone="dark" grain labelledBy="contact-title" className={styles.contact}>
+    <Section id="contact" tone="dark" grain first labelledBy="contact-title" className={styles.contact}>
       <div className={styles.glow} aria-hidden="true" />
       <Container className={styles.inner}>
         <div className={styles.copy}>
           <SectionHeader
-            index="09"
+            level={1}
+            index="01"
             label="Get in touch"
             id="contact-title"
             title="Let’s build what’s next."

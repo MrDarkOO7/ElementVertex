@@ -1,12 +1,10 @@
-import { site } from "@/content/site";
+import { sitePages, site } from "@/content/site";
 
-/** Add each new page here as it is built. */
+/** Pages are listed in content/site.js, so this file never needs editing. */
 export default function sitemap() {
-  return [
-    {
-      url: site.url,
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-  ];
+  return sitePages.map(({ path, priority }) => ({
+    url: path === "/" ? site.url : `${site.url}${path}`,
+    changeFrequency: "monthly",
+    priority,
+  }));
 }

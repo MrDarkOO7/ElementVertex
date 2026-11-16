@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "@/components/ui/NavLink";
 import { useRef, useState } from "react";
 import { useInterest } from "@/components/providers/InterestProvider";
 import Button from "@/components/ui/Button";
@@ -7,12 +8,14 @@ import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { services } from "@/content/services";
+import { routes } from "@/content/site";
 import { UNSURE } from "@/lib/contact";
 import styles from "./Services.module.css";
 
 export default function Services() {
-  const [activeId, setActiveId] = useState(services[0].id);
-  const { setInterest } = useInterest();
+  const { interest, setInterest } = useInterest();
+  // Opens on the service the visitor picked on the homepage overview, if any.
+  const [activeId, setActiveId] = useState(() => (services.some((s) => s.id === interest) ? interest : services[0].id));
   const tabRefs = useRef([]);
 
   const activeIndex = services.findIndex((s) => s.id === activeId);
@@ -32,10 +35,11 @@ export default function Services() {
   };
 
   return (
-    <Section id="services" tone="light" labelledBy="services-title">
+    <Section id="services" tone="light" first labelledBy="services-title">
       <Container>
         <SectionHeader
-          index="03"
+          level={1}
+          index="01"
           label="Our services"
           id="services-title"
           title="Services that cover the whole business."
@@ -59,7 +63,12 @@ export default function Services() {
                   aria-controls={`panel-${service.id}`}
                   tabIndex={selected ? 0 : -1}
                   className={`${styles.tab} ${selected ? styles.tabActive : ""}`}
-                  onClick={() => setActiveId(service.id)}
+                  onClick={(event) => {
+                    setActiveId(service.id);
+                    // On phones the tabs are a sideways strip that snaps by each tab's start, so slide the
+                    // chosen tab to the start: it is then fully visible and lines up with the title below.
+                    event.currentTarget.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+                  }}
                 >
                   <span className={styles.tabNum}>{service.number}</span>
                   <span className={styles.tabTitle}>{service.title}</span>
@@ -94,7 +103,7 @@ export default function Services() {
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <Button href="/#contact" arrow onClick={() => setInterest(service.id)}>
+                <Button href={routes.contact} arrow onClick={() => setInterest(service.id)}>
                   Talk to us about this
                 </Button>
               </div>
@@ -105,9 +114,9 @@ export default function Services() {
         <p className={`${styles.more} reveal`}>
           <strong>And more.</strong> These are the areas people ask for most, not the limit of what we do. Don’t see
           yours?{" "}
-          <a href="/#contact" onClick={() => setInterest(UNSURE)}>
+          <Link href={routes.contact} onClick={() => setInterest(UNSURE)}>
             Tell us what you need
-          </a>
+          </Link>
           .
         </p>
       </Container>

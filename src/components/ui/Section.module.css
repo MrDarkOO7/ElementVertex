@@ -11,6 +11,11 @@
   padding-block: 0;
 }
 
+/* First section on a sub-page: clears the fixed header. */
+.first {
+  padding-top: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem));
+}
+
 /* Colour contexts ------------------------------------------------------ */
 
 .dark {

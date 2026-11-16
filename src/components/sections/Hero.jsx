@@ -2,7 +2,7 @@ import { LogoMark } from "@/components/layout/Logo";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
-import { getBookingHref } from "@/content/site";
+import { getBookingHref, routes } from "@/content/site";
 import styles from "./Hero.module.css";
 
 /** Labels that orbit the logo. Angles are spread evenly around the ring. */
@@ -33,7 +33,7 @@ export default function Hero() {
             <Button href={getBookingHref()} size="lg" arrow>
               Book a free call
             </Button>
-            <Button href="/#services" variant="outline" size="lg">
+            <Button href={routes.services} variant="outline" size="lg">
               See what we do
             </Button>
           </div>

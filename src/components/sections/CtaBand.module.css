@@ -1,0 +1,56 @@
+.band {
+  text-align: center;
+}
+
+.glow {
+  position: absolute;
+  inset: auto 20% -60% 20%;
+  z-index: -1;
+  height: 100%;
+  background: radial-gradient(closest-side, rgb(99 49 251 / 0.4), transparent);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.inner {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.title {
+  max-width: 18ch;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.text {
+  color: var(--fg-muted);
+  font-size: 1.15rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.75rem;
+  margin-top: 1rem;
+}
+
+/* "or email" is plain text; only the address below is a link. */
+.alt {
+  color: var(--fg-muted);
+}
+
+.email {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--mint);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s;
+}
+
+.email:hover {
+  text-decoration-color: #fff;
+}

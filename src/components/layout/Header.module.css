@@ -69,8 +69,13 @@
   color: #fff;
 }
 
-.link:hover::after {
+.link:hover::after,
+.active::after {
   transform: scaleX(1);
+}
+
+.active {
+  color: #fff;
 }
 
 .actions {
@@ -137,41 +142,132 @@
     display: none;
   }
 
+  /* Full-screen panel under the header bar (header is z-index 50, so its bar and
+     close button stay on top). Sized to the dynamic viewport so mobile browser
+     toolbars never push the footer of the menu off screen. */
   .drawer {
+    --fg: #fff;
+    --fg-muted: #b4b4cc;
+    --line: var(--onyx-line);
+    --accent: var(--mint);
+    --on-accent: var(--onyx);
+    --focus: var(--mint);
     display: block;
     position: fixed;
-    inset: var(--header-h) 0 0;
-    padding-block: 2rem 3rem;
+    inset: 0;
+    z-index: 49;
+    padding-top: var(--header-h);
     overflow-y: auto;
-    background: var(--onyx);
+    overscroll-behavior: contain;
+    background:
+      radial-gradient(120% 60% at 100% 100%, rgb(99 49 251 / 0.35), transparent 60%),
+      var(--onyx);
+    color: var(--fg);
+    animation: drawer-fade 0.25s var(--ease) both;
   }
 
   .drawer[hidden] {
     display: none;
   }
 
+  .drawerInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.5rem;
+    min-height: calc(100dvh - var(--header-h));
+    padding-block: clamp(1rem, 4vh, 2.5rem) clamp(1.5rem, 5vh, 3rem);
+  }
+
   .drawerLinks {
     display: grid;
-    margin-bottom: 2rem;
+    border-top: 1px solid var(--line);
   }
 
   .drawerLinks li {
-    border-bottom: 1px solid var(--onyx-line);
-    animation: drawer-in 0.5s var(--ease) both;
-    animation-delay: calc(var(--i) * 60ms);
+    border-bottom: 1px solid var(--line);
+    animation: drawer-in 0.45s var(--ease) both;
+    animation-delay: calc(60ms + var(--i) * 50ms);
   }
 
-  .drawerLinks a {
-    display: block;
-    padding: 1.1rem 0;
+  .menuLink {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-block: clamp(1rem, 3.2vh, 1.5rem);
+    color: #fff;
+  }
+
+  .menuNum {
+    min-width: 1.6rem;
+    color: var(--mint);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .menuLabel {
     font-family: var(--font-display);
-    font-size: 1.9rem;
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
     font-weight: 700;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .menuArrow {
+    margin-left: auto;
+    color: var(--fg-muted);
+    opacity: 0.6;
+    transition:
+      transform 0.3s var(--ease),
+      opacity 0.2s,
+      color 0.2s;
+  }
+
+  .menuLink:hover .menuArrow,
+  .menuLink:focus-visible .menuArrow {
+    opacity: 1;
+    color: var(--mint);
+    transform: translateX(4px);
+  }
+
+  .menuActive .menuLabel,
+  .menuActive .menuArrow {
+    color: var(--mint);
+    opacity: 1;
+  }
+
+  .drawerFoot {
+    display: grid;
+    gap: 1rem;
+    animation: drawer-in 0.45s var(--ease) both;
+    animation-delay: calc(60ms + var(--i) * 50ms);
   }
 
   .drawerCta {
     width: 100%;
+  }
+
+  .drawerNote {
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  .drawerNote a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--mint);
+    text-underline-offset: 4px;
+  }
+}
+
+@keyframes drawer-fade {
+  from {
+    opacity: 0;
   }
 }
 
@@ -179,5 +275,13 @@
   from {
     opacity: 0;
     transform: translateY(0.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawerLinks li,
+  .drawerFoot {
+    animation: none;
   }
 }

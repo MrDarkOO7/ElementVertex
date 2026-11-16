@@ -14,11 +14,11 @@ export default function Faq() {
       <Container className={styles.inner}>
         <div className={styles.aside}>
           <SectionHeader
-            index="08"
+            index="02"
             label="FAQ"
             id="faq-title"
             title="Questions people ask before they call."
-            intro="Not here? Send us a message and we will answer it properly."
+            intro="Not here? Use the form above and we will answer it properly."
           />
         </div>
 

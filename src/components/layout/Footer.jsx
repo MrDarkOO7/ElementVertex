@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from "@/components/ui/NavLink";
 import Container from "@/components/ui/Container";
-import { navLinks, site } from "@/content/site";
+import { navLinks, routes, site } from "@/content/site";
 import { services } from "@/content/services";
 import Logo from "./Logo";
 import styles from "./Footer.module.css";
@@ -28,7 +28,10 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/#contact">Contact</Link>
+                <Link href={routes.faq}>FAQ</Link>
+              </li>
+              <li>
+                <Link href={routes.contact}>Contact</Link>
               </li>
             </ul>
           </nav>
@@ -38,7 +41,7 @@ export default function Footer() {
             <ul>
               {services.map((service) => (
                 <li key={service.id}>
-                  <Link href="/#services">{service.title}</Link>
+                  <Link href={routes.services}>{service.title}</Link>
                 </li>
               ))}
             </ul>

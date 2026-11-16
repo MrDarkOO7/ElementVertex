@@ -187,29 +187,61 @@
     grid-template-columns: 1fr;
   }
 
+  /* The strip is inset by the same amount as the panel content below it, so the
+     active pill lines up with the title instead of hugging the card's edge. */
   .tabs {
+    --strip-pad: clamp(1.5rem, 5vw, 2rem);
     flex-direction: row;
-    gap: 0.4rem;
+    gap: 1.75rem;
     overflow-x: auto;
-    padding: 0.6rem;
+    padding: 0 var(--strip-pad);
+    scroll-padding-inline: var(--strip-pad); /* snapping keeps the same inset */
     border-right: 0;
     border-bottom: 1px solid var(--onyx-line);
     scroll-snap-type: x proximity;
     scrollbar-width: none;
+    /* Soft fade on the right hints that the strip scrolls sideways. */
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+
+  .panel {
+    padding-inline: clamp(1.5rem, 5vw, 2rem); /* keep in step with --strip-pad */
   }
 
   .tabs::-webkit-scrollbar {
     display: none;
   }
 
+  /* On phones the tabs are plain text with an underline, not filled pills: with no
+     pill padding the tab text starts exactly where the panel title starts. */
   .tab {
+    position: relative;
     flex: 0 0 auto;
     width: auto;
-    padding: 0.7rem 1rem;
-    border-radius: 999px;
+    padding: 1.1rem 0;
+    border-radius: 0;
     font-size: 0.98rem;
     white-space: nowrap;
     scroll-snap-align: start;
+  }
+
+  .tab:hover {
+    background: transparent;
+  }
+
+  .tabActive,
+  .tabActive:hover {
+    background: transparent;
+    color: #fff;
+  }
+
+  .tabActive::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--mint);
   }
 }
 

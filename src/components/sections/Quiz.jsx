@@ -7,6 +7,7 @@ import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { getService, services } from "@/content/services";
+import { routes } from "@/content/site";
 import styles from "./Quiz.module.css";
 
 const stages = [
@@ -27,6 +28,7 @@ const stages = [
   },
 ];
 
+/** "Find your fit" quiz. Lives on the Services page; the result pre-selects the contact form. */
 export default function Quiz() {
   const [serviceId, setServiceId] = useState(null);
   const [stageId, setStageId] = useState(null);
@@ -48,7 +50,7 @@ export default function Quiz() {
       <Container className={styles.inner}>
         <div className={styles.intro}>
           <SectionHeader
-            index="04"
+            index="02"
             label="Find your fit"
             id="quiz-title"
             title="Not sure where to start? Two quick questions."
@@ -105,7 +107,7 @@ export default function Quiz() {
                   {service.tagline} {stage.outcome}
                 </p>
                 <div className={styles.resultActions}>
-                  <Button href="/#contact" arrow onClick={() => setInterest(service.id)}>
+                  <Button href={routes.contact} arrow onClick={() => setInterest(service.id)}>
                     Talk to us about it
                   </Button>
                   <button type="button" className={styles.back} onClick={reset}>

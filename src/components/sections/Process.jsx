@@ -6,11 +6,12 @@ import styles from "./Process.module.css";
 
 export default function Process() {
   return (
-    <Section id="approach" tone="dark" grain labelledBy="process-title">
+    <Section id="approach" tone="dark" grain first labelledBy="process-title">
       <Container className={styles.inner}>
         <div className={styles.aside}>
           <SectionHeader
-            index="05"
+            level={1}
+            index="01"
             label="Our approach"
             id="process-title"
             title="Understand the objective. Build what is needed. Keep it running."

@@ -1,59 +1,45 @@
-import About from "@/components/sections/About";
-import Comparison from "@/components/sections/Comparison";
-import Contact from "@/components/sections/Contact";
-import Faq from "@/components/sections/Faq";
+import CtaBand from "@/components/sections/CtaBand";
 import Hero from "@/components/sections/Hero";
+import JsonLd from "@/components/JsonLd";
 import OneTeam from "@/components/sections/OneTeam";
 import Problem from "@/components/sections/Problem";
-import Process from "@/components/sections/Process";
-import Quiz from "@/components/sections/Quiz";
-import Services from "@/components/sections/Services";
+import ServicesOverview from "@/components/sections/ServicesOverview";
 import Ticker from "@/components/sections/Ticker";
 import { services } from "@/content/services";
-import { faqs } from "@/content/copy";
 import { site } from "@/content/site";
 
-const structuredData = [
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: site.name,
-    url: site.url,
-    email: site.email,
+export const metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    title: `${site.name} | One team for every business function`,
     description: site.description,
-    slogan: site.tagline,
-    knowsAbout: services.map((s) => s.title),
+    url: "/",
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((item) => ({
-      "@type": "Question",
-      name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
-    })),
-  },
-];
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  description: site.description,
+  slogan: site.tagline,
+  knowsAbout: services.map((s) => s.title),
+};
 
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        // "<" is escaped so the JSON can never close the script tag.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
-      />
+      <JsonLd data={structuredData} />
       <Hero />
       <Ticker />
       <Problem />
       <OneTeam />
-      <Services />
-      <Quiz />
-      <Process />
-      <Comparison />
-      <About />
-      <Faq />
-      <Contact />
+      <ServicesOverview />
+      <CtaBand />
     </>
   );
 }

@@ -7,12 +7,15 @@ import styles from "./Section.module.css";
  * --line, --accent, --on-accent and --surface, so child components never
  * need to know which background they sit on.
  *
- * @param {{ tone?: "dark" | "light" | "indigo", grain?: boolean, flush?: boolean }} props
+ * `first` adds top padding for the fixed header; use it on the opening section of a sub-page.
+ *
+ * @param {{ tone?: "dark" | "light" | "indigo", grain?: boolean, flush?: boolean, first?: boolean }} props
  */
 export default function Section({
   tone = "light",
   grain = false,
   flush = false,
+  first = false,
   id,
   labelledBy,
   className = "",
@@ -23,6 +26,7 @@ export default function Section({
     styles[tone],
     grain ? styles.grain : "",
     flush ? styles.flush : "",
+    first ? styles.first : "",
     className,
   ]
     .filter(Boolean)

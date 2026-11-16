@@ -19,10 +19,11 @@ function Avatar({ founder }) {
 
 export default function About() {
   return (
-    <Section id="about" tone="dark" grain labelledBy="about-title">
+    <Section id="about" tone="dark" grain first labelledBy="about-title">
       <Container>
         <SectionHeader
-          index="07"
+          level={1}
+          index="01"
           label="About us"
           id="about-title"
           title={

@@ -27,13 +27,13 @@ export const metadata = {
   },
   description: site.description,
   applicationName: site.name,
-  alternates: { canonical: "/" },
+  // Canonical URL and openGraph.url are set per page (see lib/metadata.js), not here,
+  // otherwise every route would claim to be the homepage.
   openGraph: {
     type: "website",
     siteName: site.name,
     title,
     description: site.description,
-    url: "/",
   },
   twitter: {
     card: "summary_large_image",
@@ -50,7 +50,10 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    // data-scroll-behavior="smooth": globals.css enables smooth scrolling for in-page
+    // jumps. This tells Next.js 16 to switch it off during page changes, so a new page
+    // opens instantly at the top instead of animating there from the old scroll position.
+    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${body.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content

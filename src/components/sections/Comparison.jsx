@@ -11,7 +11,7 @@ export default function Comparison() {
     <Section tone="light" labelledBy="comparison-title">
       <Container>
         <SectionHeader
-          index="06"
+          index="02"
           label="Why Element Vertex"
           id="comparison-title"
           title="Clarity in place of complexity."

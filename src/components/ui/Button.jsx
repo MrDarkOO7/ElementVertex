@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "./NavLink";
 import styles from "./Button.module.css";
 
 function Arrow() {
