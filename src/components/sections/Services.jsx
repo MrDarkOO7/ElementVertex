@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "@/components/ui/NavLink";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInterest } from "@/components/providers/InterestProvider";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
@@ -13,13 +13,34 @@ import { UNSURE } from "@/lib/contact";
 import styles from "./Services.module.css";
 
 export default function Services() {
-  const { interest, setInterest } = useInterest();
-  // Opens on the service the visitor picked on the homepage overview, if any.
-  const [activeId, setActiveId] = useState(() => (services.some((s) => s.id === interest) ? interest : services[0].id));
+  const { setInterest, serviceRequest } = useInterest();
+  const isService = (id) => services.some((s) => s.id === id);
+
+  // Open on the service asked for by a footer link or homepage card, if any.
+  const [activeId, setActiveId] = useState(() => (isService(serviceRequest?.id) ? serviceRequest.id : services[0].id));
   const tabRefs = useRef([]);
+
+  // A new request while already on this page (e.g. a footer link) switches the tab.
+  const [handledRequest, setHandledRequest] = useState(serviceRequest);
+  if (serviceRequest !== handledRequest) {
+    setHandledRequest(serviceRequest);
+    if (isService(serviceRequest?.id)) setActiveId(serviceRequest.id);
+  }
 
   const activeIndex = services.findIndex((s) => s.id === activeId);
   const active = services[activeIndex];
+
+  // On phones the tabs are a sideways strip that snaps by each tab's start. Slide the
+  // active tab to the start so it is fully visible and lines up with the title below.
+  // Only the strip scrolls, never the page.
+  useEffect(() => {
+    const tab = tabRefs.current[activeIndex];
+    const strip = tab?.parentElement;
+    if (!strip || strip.scrollWidth <= strip.clientWidth) return; // desktop: vertical list, nothing to do
+    const inset = parseFloat(getComputedStyle(strip).paddingLeft) || 0;
+    const left = strip.scrollLeft + tab.getBoundingClientRect().left - strip.getBoundingClientRect().left - inset;
+    strip.scrollTo({ left, behavior: "smooth" });
+  }, [activeIndex]);
 
   /** WAI-ARIA tabs pattern: arrow keys move between tabs, Home/End jump. */
   const onKeyDown = (event) => {
@@ -63,12 +84,7 @@ export default function Services() {
                   aria-controls={`panel-${service.id}`}
                   tabIndex={selected ? 0 : -1}
                   className={`${styles.tab} ${selected ? styles.tabActive : ""}`}
-                  onClick={(event) => {
-                    setActiveId(service.id);
-                    // On phones the tabs are a sideways strip that snaps by each tab's start, so slide the
-                    // chosen tab to the start: it is then fully visible and lines up with the title below.
-                    event.currentTarget.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-                  }}
+                  onClick={() => setActiveId(service.id)}
                 >
                   <span className={styles.tabNum}>{service.number}</span>
                   <span className={styles.tabTitle}>{service.title}</span>

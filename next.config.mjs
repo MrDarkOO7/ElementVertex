@@ -20,6 +20,11 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   allowedDevOrigins: lanAddresses,
+  images: {
+    // Team photos are hosted on Cloudinary. Once you know your cloud name, narrow the
+    // path to `/<cloud-name>/**` so only your own images can be served through the site.
+    remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com", pathname: "/**" }],
+  },
 };
 
 export default nextConfig;

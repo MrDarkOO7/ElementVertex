@@ -2,14 +2,21 @@ import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { founders, values } from "@/content/copy";
+import { founders, team, values } from "@/content/copy";
 import styles from "./About.module.css";
 
 function Avatar({ founder }) {
   return (
     <span className={styles.avatar}>
       {founder.photo ? (
-        <Image src={founder.photo} alt={founder.name} width={160} height={160} className={styles.photo} />
+        <Image
+          src={founder.photo}
+          alt={founder.name}
+          width={400}
+          height={400}
+          sizes="(max-width: 40rem) 72px, 144px"
+          className={styles.photo}
+        />
       ) : (
         <span aria-hidden="true">{founder.initials}</span>
       )}
@@ -63,20 +70,17 @@ export default function About() {
         </div>
 
         <div className={styles.team}>
-          <h3 className={`${styles.teamTitle} reveal`}>The people behind Element Vertex</h3>
+          <p className={`${styles.teamLabel} reveal`}>The people behind Element Vertex</p>
+          <h3 className={`${styles.teamTitle} reveal`}>{team.title}</h3>
+          <p className={`${styles.teamNote} reveal`}>{team.text}</p>
           <ul className={styles.founders}>
             {founders.map((founder, i) => (
               <li key={founder.name} className={`${styles.founder} reveal`} style={{ "--i": i }}>
                 <Avatar founder={founder} />
                 <p className={styles.name}>{founder.name}</p>
-                <p className={styles.role}>Co-founder</p>
               </li>
             ))}
           </ul>
-          <p className={`${styles.teamNote} reveal`}>
-            Three co-founders with one shared goal: giving businesses a single partner they can rely on. We keep every
-            engagement focused on clear objectives, quality delivery and results that last.
-          </p>
         </div>
       </Container>
     </Section>

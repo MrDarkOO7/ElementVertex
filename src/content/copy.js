@@ -123,11 +123,23 @@ export const values = [
   },
 ];
 
-/** Add `photo: "/team/name.jpg"` to a founder once photos are available. */
+/**
+ * The "people behind" section. No individual titles on purpose: any founder can be
+ * the client-facing person on any project, so the page says "founder-led" once instead.
+ */
+export const team = {
+  title: "Founder-led. Every client, every project.",
+  text: "Element Vertex is run by its three founders, and every client works directly with one of us. No account managers, no hand-offs to someone who does not know your business. Whoever you speak to has the full picture.",
+};
+
+/**
+ * `photo` is a Cloudinary (or any https) image URL. While it is empty the card shows
+ * the initials instead. Use square images, at least 400px wide, with the face centred.
+ */
 export const founders = [
-  { name: "Ameer Humza Hayat", initials: "AH" },
-  { name: "Hashir Habib", initials: "HH" },
-  { name: "Muhammad Waleed", initials: "MW" },
+  { name: "Ameer Humza Hayat", initials: "AH", photo: "" },
+  { name: "Hashir Habib", initials: "HH", photo: "" },
+  { name: "Muhammad Waleed", initials: "MW", photo: "" },
 ];
 
 export const faqs = [

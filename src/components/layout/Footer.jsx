@@ -1,5 +1,6 @@
 import Link from "@/components/ui/NavLink";
 import Container from "@/components/ui/Container";
+import ServiceLink from "@/components/ui/ServiceLink";
 import { navLinks, routes, site } from "@/content/site";
 import { services } from "@/content/services";
 import Logo from "./Logo";
@@ -41,7 +42,7 @@ export default function Footer() {
             <ul>
               {services.map((service) => (
                 <li key={service.id}>
-                  <Link href={routes.services}>{service.title}</Link>
+                  <ServiceLink serviceId={service.id}>{service.title}</ServiceLink>
                 </li>
               ))}
             </ul>
