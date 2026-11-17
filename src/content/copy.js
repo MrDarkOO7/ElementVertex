@@ -133,13 +133,30 @@ export const team = {
 };
 
 /**
- * `photo` is a Cloudinary (or any https) image URL. While it is empty the card shows
- * the initials instead. Use square images, at least 400px wide, with the face centred.
+ * Founder photos live on Cloudinary. The originals are ~1.3 MB, so every link carries a
+ * resize (`c_fill,w_640,h_640,f_auto,q_auto:good`): a 640px square is sharp even on a
+ * 3x phone screen (the circle is shown at ~200 CSS px) and is only a few dozen KB.
+ * To change a photo, upload it and paste the new path after `/upload/<resize>/`.
+ * While `photo` is empty the card shows the initials instead.
  */
+const cloudinary = "https://res.cloudinary.com/f64skwlz/image/upload/c_fill,w_640,h_640,f_auto,q_auto:good";
+
 export const founders = [
-  { name: "Ameer Humza Hayat", initials: "AH", photo: "" },
-  { name: "Hashir Habib", initials: "HH", photo: "" },
-  { name: "Muhammad Waleed", initials: "MW", photo: "" },
+  {
+    name: "Ameer Humza Hayat",
+    initials: "AH",
+    photo: `${cloudinary}/v1794944019/Curly-Haired_Man_in_Rust_Jacket.webp`,
+  },
+  {
+    name: "Hashir Habib",
+    initials: "HH",
+    photo: `${cloudinary}/v1794944020/Third_Founder_Professional_Portrait.webp`,
+  },
+  {
+    name: "Muhammad Waleed",
+    initials: "MW",
+    photo: `${cloudinary}/v1794944016/Professional_Corporate_Portrait_1.webp`,
+  },
 ];
 
 export const faqs = [

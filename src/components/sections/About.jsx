@@ -9,14 +9,9 @@ function Avatar({ founder }) {
   return (
     <span className={styles.avatar}>
       {founder.photo ? (
-        <Image
-          src={founder.photo}
-          alt={founder.name}
-          width={400}
-          height={400}
-          sizes="(max-width: 40rem) 72px, 144px"
-          className={styles.photo}
-        />
+        // `unoptimized`: Cloudinary already resizes and compresses (see copy.js). Letting
+        // Next.js shrink and recompress it a second time is what made the photos blurry.
+        <Image src={founder.photo} alt={founder.name} width={640} height={640} unoptimized className={styles.photo} />
       ) : (
         <span aria-hidden="true">{founder.initials}</span>
       )}

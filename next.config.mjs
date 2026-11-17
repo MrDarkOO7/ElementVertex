@@ -21,9 +21,9 @@ const nextConfig = {
   poweredByHeader: false,
   allowedDevOrigins: lanAddresses,
   images: {
-    // Team photos are hosted on Cloudinary. Once you know your cloud name, narrow the
-    // path to `/<cloud-name>/**` so only your own images can be served through the site.
-    remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com", pathname: "/**" }],
+    // Team photos are hosted on our Cloudinary account (cloud name f64skwlz). Limiting the
+    // path to it means no one else's Cloudinary images can be served through the site.
+    remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com", pathname: "/f64skwlz/**" }],
   },
 };
 

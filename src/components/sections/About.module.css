@@ -147,6 +147,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* The portraits are shoulder-up with the face in the upper half. Zoom in around the
+     face so it fills the circle instead of showing mostly jacket. */
+  transform: scale(1.4);
+  transform-origin: 50% 30%;
 }
 
 .name {
